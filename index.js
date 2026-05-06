@@ -1,46 +1,46 @@
 const mineflayer = require('mineflayer');
 
-const botArgs = {
+const botConfig = {
     host: 'mtatr.aternos.me',
-    port: 25565, // Aternos genelde varsayılan portu kullanır
-    username: 'AFK_Bot_NPC', // Botun oyundaki adı
-    version: '1.21.11' // Hem Bedrock hem Java desteği için sürüm sabitlendi
+    port: 25565,
+    version: '1.21.11'
 };
 
-function createBot() {
-    const bot = mineflayer.createBot(botArgs);
+const BOT_COUNT = 30; // 30 bot girecek şekilde ayarlandı
+const JOIN_DELAY = 5000; // Her botun girişi arasında 5 saniye bekleme (Güvenlik için)
+
+function createBot(name) {
+    const bot = mineflayer.createBot({
+        ...botConfig,
+        username: name
+    });
 
     bot.on('spawn', () => {
-        console.log('Bot sunucuya katıldı!');
+        console.log(`${name} sunucuya katıldı!`);
         
-        // Rastgele hareket döngüsü
+        // Rastgele hareket döngüsü (Sunucudan atılmamak için)
         setInterval(() => {
             const actions = ['forward', 'back', 'left', 'right', 'jump'];
             const action = actions[Math.floor(Math.random() * actions.length)];
-            
             bot.setControlState(action, true);
-            setTimeout(() => {
-                bot.setControlState(action, false);
-            }, 1000);
-        }, 10000); // Her 10 saniyede bir hareket eder
+            setTimeout(() => bot.setControlState(action, false), 1000);
+        }, 15000);
     });
 
-    bot.on('chat', (username, message) => {
-        if (username === bot.username) return;
-        console.log(`${username}: ${message}`);
-        
-        // Basit etkileşim: Birisi "selam" derse cevap verebilir
-        if (message.toLowerCase().includes('selam')) {
-            bot.chat(`Selam ${username}, ben buradayım!`);
-        }
-    });
-
-    bot.on('error', (err) => console.log('Hata:', err));
+    bot.on('error', (err) => console.log(`${name} Hatası:`, err.message));
     
     bot.on('end', () => {
-        console.log('Sunucudan ayrıldı, 30 saniye içinde tekrar bağlanılıyor...');
-        setTimeout(createBot, 30000); // Bağlantı koparsa tekrar bağlanır
+        console.log(`${name} ayrıldı, 30 saniye sonra tekrar denenecek...`);
+        setTimeout(() => createBot(name), 30000);
     });
 }
 
-createBot();
+// Botları sırayla başlat
+console.log(`${BOT_COUNT} bot başlatma işlemi başlıyor...`);
+for (let i = 1; i <= BOT_COUNT; i++) {
+    setTimeout(() => {
+        const botName = `AFK_Bot_${i}`;
+        console.log(`${botName} başlatılıyor...`);
+        createBot(botName);
+    }, i * JOIN_DELAY);
+}
