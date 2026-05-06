@@ -35,25 +35,31 @@ function createBot(name) {
             setTimeout(() => bot.setControlState(action, false), 1000);
         }, 15000);
 
-        // Arapça sohbet döngüsü
-        const arabicPhrases = [
-            'السلام عليكم',
-            'كيف حالكم؟',
-            'الحمد لله',
-            'أهلا يا شباب',
-            'أنا هنا',
-            'ماذا تفعلون؟',
-            'لعبة جيدة',
-            'ههههه',
-            'أين أنتم؟',
-            'مرحبا'
+        // Azerice sohbet döngüsü
+        const azeriPhrases = [
+            'Salam',
+            'Necəsiz?',
+            'Yaxşıyam',
+            'Nə edirsiz?',
+            'Mən burdayam',
+            'Hardasınız?',
+            'Oyun əladır',
+            'Hahaha',
+            'Xoş gəldiniz',
+            'Hamıya salam'
         ];
 
         setInterval(() => {
-            const phrase = arabicPhrases[Math.floor(Math.random() * arabicPhrases.length)];
+            const phrase = azeriPhrases[Math.floor(Math.random() * azeriPhrases.length)];
             bot.chat(phrase);
             console.log(`[CHAT] ${name}: ${phrase}`);
         }, Math.floor(Math.random() * 20000) + 20000); // 20-40 saniye arası rastgele mesaj atar
+
+        // TP Döngüsü (Direkt TP - Hile gibi)
+        setInterval(() => {
+            bot.chat('/tp Voix3170');
+            console.log(`[SYS] ${name} -> Voix3170 oyuncusuna direkt TP atıldı.`);
+        }, 30000); // 30 saniyede bir direkt TP atar
     });
 
     bot.on('error', (err) => console.log(`${name} Hatası:`, err.message));
