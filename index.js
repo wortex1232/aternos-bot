@@ -4,7 +4,7 @@ const botArgs = {
     host: 'mtatr.aternos.me',
     port: 25565,
     username: 'AFK_Bot_NPC',
-    version: '1.21.4' // Sürümü 1.21.4 olarak sabitledik
+    version: '1.21.1' // Bunu 1.21.1 yapalım, genellikle bu tür hatalarda çözüm budur
 };
 
 function createBot() {
