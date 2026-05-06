@@ -1,0 +1,29 @@
+name: Aternos 7/24 Bot
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Her 6 saatte bir çalıştır
+  workflow_dispatch: # Manuel olarak başlatabilmen için
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu Çek
+        uses: actions/checkout@v3
+
+      - name: Node.js Kur
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Bağımlılıkları Yükle
+        run: |
+          cd aternos-bot
+          npm install
+
+      - name: Botu Başlat
+        run: |
+          cd aternos-bot
+          node index.js
+        timeout-minutes: 350 # 5 saat 50 dakika sonra durdur (6 saat limitine takılmamak için)
