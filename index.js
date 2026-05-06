@@ -6,7 +6,7 @@ const botConfig = {
     version: '1.21.11'
 };
 
-const BOT_COUNT = 30; // 30 bot girecek şekilde ayarlandı
+const BOT_COUNT = 70; // 30 bot girecek şekilde ayarlandı
 const JOIN_DELAY = 5000; // Her botun girişi arasında 5 saniye bekleme (Güvenlik için)
 
 function createBot(name) {
