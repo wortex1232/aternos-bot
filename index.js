@@ -3,11 +3,12 @@ const mineflayer = require('mineflayer');
 const botConfig = {
     host: 'mtatr.aternos.me',
     port: 25565,
-    version: '1.21.11'
+    version: '1.21.11',
+    checkTimeoutInterval: 60000
 };
 
-const BOT_COUNT = 30; // 30 bot girecek şekilde ayarlandı
-const JOIN_DELAY = 5000; // Her botun girişi arasında 5 saniye bekleme (Güvenlik için)
+const BOT_COUNT = 5; // Aternos IP engeli yememek için sayı düşürüldü
+const JOIN_DELAY = 15000; // Giriş süresi uzatıldı (Güvenlik)
 
 function createBot(name) {
     const bot = mineflayer.createBot({
@@ -30,8 +31,9 @@ function createBot(name) {
     bot.on('error', (err) => console.log(`${name} Hatası:`, err.message));
     
     bot.on('end', () => {
-        console.log(`${name} ayrıldı, 30 saniye sonra tekrar denenecek...`);
-        setTimeout(() => createBot(name), 30000);
+        const reconnectDelay = Math.floor(Math.random() * 30000) + 30000; // 30-60 saniye arası rastgele tekrar dene
+        console.log(`${name} ayrıldı, ${reconnectDelay/1000} saniye sonra tekrar denenecek...`);
+        setTimeout(() => createBot(name), reconnectDelay);
     });
 }
 
