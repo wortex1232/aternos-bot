@@ -6,7 +6,7 @@ const botConfig = {
     version: '1.21.11'
 };
 
-const BOT_COUNT = 70; // 30 bot girecek şekilde ayarlandı
+const BOT_COUNT = 30; // 30 bot girecek şekilde ayarlandı
 const JOIN_DELAY = 5000; // Her botun girişi arasında 5 saniye bekleme (Güvenlik için)
 
 function createBot(name) {
@@ -35,11 +35,20 @@ function createBot(name) {
     });
 }
 
+function generateRandomName() {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let name = 'AFK_';
+    for (let i = 0; i < 6; i++) {
+        name += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return name;
+}
+
 // Botları sırayla başlat
 console.log(`${BOT_COUNT} bot başlatma işlemi başlıyor...`);
 for (let i = 1; i <= BOT_COUNT; i++) {
     setTimeout(() => {
-        const botName = `AFK_Bot_${i}`;
+        const botName = generateRandomName();
         console.log(`${botName} başlatılıyor...`);
         createBot(botName);
     }, i * JOIN_DELAY);
