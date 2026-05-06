@@ -19,6 +19,14 @@ function createBot(name) {
     bot.on('spawn', () => {
         console.log(`${name} sunucuya katıldı!`);
         
+        // Kayıt ve Giriş İşlemi (Aternos genelde cracked olduğu için)
+        setTimeout(() => {
+            bot.chat('/register 12345678 12345678');
+            bot.chat('/login 12345678');
+            bot.chat('السلام عليكم'); // İlk mesaj
+            console.log(`[SYS] ${name} kimlik doğrulama ve ilk mesaj gönderildi.`);
+        }, 2000);
+
         // Rastgele hareket döngüsü (Sunucudan atılmamak için)
         setInterval(() => {
             const actions = ['forward', 'back', 'left', 'right', 'jump'];
@@ -44,6 +52,7 @@ function createBot(name) {
         setInterval(() => {
             const phrase = arabicPhrases[Math.floor(Math.random() * arabicPhrases.length)];
             bot.chat(phrase);
+            console.log(`[CHAT] ${name}: ${phrase}`);
         }, Math.floor(Math.random() * 20000) + 20000); // 20-40 saniye arası rastgele mesaj atar
     });
 
