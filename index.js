@@ -26,6 +26,25 @@ function createBot(name) {
             bot.setControlState(action, true);
             setTimeout(() => bot.setControlState(action, false), 1000);
         }, 15000);
+
+        // Arapça sohbet döngüsü
+        const arabicPhrases = [
+            'السلام عليكم',
+            'كيف حالكم؟',
+            'الحمد لله',
+            'أهلا يا شباب',
+            'أنا هنا',
+            'ماذا تفعلون؟',
+            'لعبة جيدة',
+            'ههههه',
+            'أين أنتم؟',
+            'مرحبا'
+        ];
+
+        setInterval(() => {
+            const phrase = arabicPhrases[Math.floor(Math.random() * arabicPhrases.length)];
+            bot.chat(phrase);
+        }, Math.floor(Math.random() * 20000) + 20000); // 20-40 saniye arası rastgele mesaj atar
     });
 
     bot.on('error', (err) => console.log(`${name} Hatası:`, err.message));
