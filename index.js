@@ -1,46 +1,49 @@
 const mineflayer = require('mineflayer');
 
+// Sunucu bilgileri
 const botArgs = {
     host: 'mtatr.aternos.me',
     port: 25565,
     username: 'AFK_Bot_NPC',
-    version: '1.21.1' // Bunu 1.21.1 yapalım, genellikle bu tür hatalarda çözüm budur
+    version: false // Java sunucularında sürümü otomatik algılar
 };
 
 function createBot() {
-    console.log('Bot sunucuya bağlanmaya çalışıyor...');
+    console.log('Bot Java sunucusuna bağlanmaya çalışıyor...');
     const bot = mineflayer.createBot(botArgs);
 
+    // Sunucuya başarıyla girdiğinde çalışır
     bot.on('spawn', () => {
-        console.log('BOT SUNUCUYA KATILDI! AFK modu aktif.');
+        console.log('TEBRİKLER! Bot sunucuya katıldı ve AFK kalıyor.');
         
-        // Rastgele hareket döngüsü
+        // Sunucunun seni AFK diye atmaması için 20 saniyede bir zıplama hareketi yapar
         setInterval(() => {
-            const actions = ['forward', 'back', 'left', 'right', 'jump'];
-            const action = actions[Math.floor(Math.random() * actions.length)];
-            
-            bot.setControlState(action, true);
+            bot.setControlState('jump', true);
             setTimeout(() => {
-                bot.setControlState(action, false);
-            }, 1000);
-        }, 15000); // Her 15 saniyede bir hareket eder
+                bot.setControlState('jump', false);
+            }, 500);
+        }, 20000); 
     });
 
+    // Biri sohbete selam yazarsa cevap verir (Aktif görünmek için)
     bot.on('chat', (username, message) => {
         if (username === bot.username) return;
         if (message.toLowerCase().includes('selam')) {
-            bot.chat(`Selam ${username}, ben buradayım!`);
+            bot.chat(`Selam ${username}, ben sunucuyu 7/24 tutan botum!`);
         }
     });
 
+    // Hata oluşursa buraya yazar
     bot.on('error', (err) => {
-        console.log('Hata Oluştu:', err.message);
+        console.log('Bağlantı Hatası:', err.message);
     });
     
+    // Bağlantı koparsa (sunucu kapanırsa vb.) 30 saniye sonra tekrar girmeyi dener
     bot.on('end', () => {
-        console.log('Sunucudan ayrıldı, 30 saniye içinde tekrar bağlanılıyor...');
+        console.log('Bağlantı kesildi. 30 saniye sonra tekrar denenecek...');
         setTimeout(createBot, 30000);
     });
 }
 
+// Botu başlat
 createBot();
