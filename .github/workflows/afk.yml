@@ -2,8 +2,8 @@ name: Aternos 7/24 Bot
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Her 6 saatte bir otomatik başlar
-  workflow_dispatch: # Senin manuel başlatabilmen için
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,4 +22,4 @@ jobs:
 
       - name: Botu Başlat
         run: node index.js
-        timeout-minutes: 350 # GitHub limitine takılmamak için 5 saat 50 dakika çalışır
+        timeout-minutes: 350
