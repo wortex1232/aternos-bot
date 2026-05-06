@@ -2,16 +2,17 @@ const mineflayer = require('mineflayer');
 
 const botArgs = {
     host: 'mtatr.aternos.me',
-    port: 25565, // Aternos genelde varsayılan portu kullanır
-    username: 'AFK_Bot_NPC', // Botun oyundaki adı
-    version: false // Sunucu sürümünü otomatik algılar
+    port: 25565,
+    username: 'AFK_Bot_NPC',
+    version: '1.21.4' // Sürümü 1.21.4 olarak sabitledik
 };
 
 function createBot() {
+    console.log('Bot sunucuya bağlanmaya çalışıyor...');
     const bot = mineflayer.createBot(botArgs);
 
     bot.on('spawn', () => {
-        console.log('Bot sunucuya katıldı!');
+        console.log('BOT SUNUCUYA KATILDI! AFK modu aktif.');
         
         // Rastgele hareket döngüsü
         setInterval(() => {
@@ -22,24 +23,23 @@ function createBot() {
             setTimeout(() => {
                 bot.setControlState(action, false);
             }, 1000);
-        }, 10000); // Her 10 saniyede bir hareket eder
+        }, 15000); // Her 15 saniyede bir hareket eder
     });
 
     bot.on('chat', (username, message) => {
         if (username === bot.username) return;
-        console.log(`${username}: ${message}`);
-        
-        // Basit etkileşim: Birisi "selam" derse cevap verebilir
         if (message.toLowerCase().includes('selam')) {
             bot.chat(`Selam ${username}, ben buradayım!`);
         }
     });
 
-    bot.on('error', (err) => console.log('Hata:', err));
+    bot.on('error', (err) => {
+        console.log('Hata Oluştu:', err.message);
+    });
     
     bot.on('end', () => {
         console.log('Sunucudan ayrıldı, 30 saniye içinde tekrar bağlanılıyor...');
-        setTimeout(createBot, 30000); // Bağlantı koparsa tekrar bağlanır
+        setTimeout(createBot, 30000);
     });
 }
 
