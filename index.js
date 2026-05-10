@@ -1,8 +1,8 @@
 const mineflayer = require('mineflayer');
 
 const botConfig = {
-    host: 'osmbaba.aternos.me',
-    port: 12827,
+    host: 'mtatr.aternos.me',
+    port: 25565,
     version: '1.21.11',
     checkTimeoutInterval: 60000
 };
@@ -37,27 +37,16 @@ function createBot(name) {
             setTimeout(() => bot.setControlState(action, false), 500 + Math.random() * 1500);
         }, 10000 + Math.random() * 20000);
 
-        const azeriPhrases = [
+        const phrases = [
             'discord.gg/exantriX',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/exantriX',
-            'discord.gg/exantriX',
-            'discord.gg/exantriX'
+            'discord.gg/mtatr'
         ];
 
         setInterval(() => {
-            const phrase = azeriPhrases[Math.floor(Math.random() * azeriPhrases.length)];
+            const phrase = phrases[Math.floor(Math.random() * phrases.length)];
             bot.chat(phrase);
             console.log(`[CHAT] ${name}: ${phrase}`);
-        }, 30000 + Math.random() * 60000);
+        }, 5000 + Math.random() * 10000);
     });
 
     bot.on('error', (err) => console.log(`${name} Hatası:`, err.message));
