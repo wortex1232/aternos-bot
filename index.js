@@ -1,8 +1,8 @@
 const mineflayer = require('mineflayer');
 
 const botConfig = {
-    host: 'mtatr.aternos.me',
-    port: 25565,
+    host: 'osmbaba.aternos.me',
+    port: 12827,
     version: '1.21.11',
     checkTimeoutInterval: 60000
 };
