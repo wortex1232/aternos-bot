@@ -37,10 +37,10 @@ function createBot(name) {
 
         // Azerice sohbet döngüsü
         const azeriPhrases = [
-            'Salam',
-            'Necəsiz?',
-            'Yaxşıyam',
-            'Nə edirsiz?',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/exantriX',
             'Mən burdayam',
             'Hardasınız?',
             'Oyun əladır',
