@@ -40,17 +40,17 @@ function createBot(name) {
         const azeriPhrases = [
             'discord.gg/exantriX',
             'discord.gg/mtatr',
-            'Yaxşıyam',
-            'Nə edirsiz?',
-            'Mən burdayam',
-            'Hardasınız?',
-            'Oyun əladır',
-            'Hahaha',
-            'Xoş gəldiniz',
-            'Hamıya salam',
-            'Necə?',
-            'İndi nə olacaq?',
-            'Yaxşı, yaxşı'
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/mtatr',
+            'discord.gg/exantriX',
+            'discord.gg/exantriX',
+            'discord.gg/exantriX'
         ];
 
         setInterval(() => {
