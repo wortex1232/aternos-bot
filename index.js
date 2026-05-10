@@ -7,8 +7,8 @@ const botConfig = {
     checkTimeoutInterval: 60000
 };
 
-const BOT_COUNT = 5; // Aternos IP engeli yememek için sayı düşürüldü
-const JOIN_DELAY = 15000; // Giriş süresi uzatıldı (Güvenlik)
+const BOT_COUNT = 5;
+const JOIN_DELAY = 15000;
 
 function createBot(name) {
     const bot = mineflayer.createBot({
@@ -19,68 +19,71 @@ function createBot(name) {
     bot.on('spawn', () => {
         console.log(`${name} sunucuya katıldı!`);
         
-        // Kayıt ve Giriş İşlemi (Aternos genelde cracked olduğu için)
         setTimeout(() => {
             bot.chat('/register 12345678 12345678');
-            bot.chat('/login 12345678');
-            bot.chat('السلام عليكم'); // İlk mesaj
-            console.log(`[SYS] ${name} kimlik doğrulama ve ilk mesaj gönderildi.`);
-        }, 2000);
+            setTimeout(() => {
+                bot.chat('/login 12345678');
+                setTimeout(() => {
+                    bot.chat('Salam');
+                    console.log(`[SYS] ${name} kimlik doğrulama ve ilk mesaj gönderildi.`);
+                }, 1500);
+            }, 1500);
+        }, 3000);
 
-        // Rastgele hareket döngüsü (Sunucudan atılmamak için)
         setInterval(() => {
             const actions = ['forward', 'back', 'left', 'right', 'jump'];
             const action = actions[Math.floor(Math.random() * actions.length)];
             bot.setControlState(action, true);
-            setTimeout(() => bot.setControlState(action, false), 1000);
-        }, 15000);
+            setTimeout(() => bot.setControlState(action, false), 500 + Math.random() * 1500);
+        }, 10000 + Math.random() * 20000);
 
-        // Azerice sohbet döngüsü
         const azeriPhrases = [
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
-            'discord.gg/mtatr',
             'discord.gg/exantriX',
+            'discord.gg/mtatr',
+            'Yaxşıyam',
+            'Nə edirsiz?',
             'Mən burdayam',
             'Hardasınız?',
             'Oyun əladır',
             'Hahaha',
             'Xoş gəldiniz',
-            'Hamıya salam'
+            'Hamıya salam',
+            'Necə?',
+            'İndi nə olacaq?',
+            'Yaxşı, yaxşı'
         ];
 
         setInterval(() => {
             const phrase = azeriPhrases[Math.floor(Math.random() * azeriPhrases.length)];
             bot.chat(phrase);
             console.log(`[CHAT] ${name}: ${phrase}`);
-        }, Math.floor(Math.random() * 20000) + 20000); // 20-40 saniye arası rastgele mesaj atar
-
-        // TP Döngüsü (Direkt TP - Hile gibi)
-        setInterval(() => {
-            bot.chat('/tp Voix3170');
-            console.log(`[SYS] ${name} -> Voix3170 oyuncusuna direkt TP atıldı.`);
-        }, 30000); // 30 saniyede bir direkt TP atar
+        }, 30000 + Math.random() * 60000);
     });
 
     bot.on('error', (err) => console.log(`${name} Hatası:`, err.message));
     
     bot.on('end', () => {
-        const reconnectDelay = Math.floor(Math.random() * 30000) + 30000; // 30-60 saniye arası rastgele tekrar dene
-        console.log(`${name} ayrıldı, ${reconnectDelay/1000} saniye sonra tekrar denenecek...`);
-        setTimeout(() => createBot(name), reconnectDelay);
+        const reconnectDelay = Math.floor(Math.random() * 60000) + 60000;
+        console.log(`${name} ayrıldı, ${reconnectDelay/1000} saniye sonra tekrar denenecek... Yeni isim alınıyor...`);
+        setTimeout(() => createBot(generateRandomName()), reconnectDelay);
     });
 }
 
 function generateRandomName() {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let name = 'AFK_';
-    for (let i = 0; i < 6; i++) {
-        name += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
+    const firstNames = ['Ali', 'Veli', 'Hasan', 'Hüseyin', 'Mehmet', 'Ahmet', 'Fatma', 'Ayşe', 'Zeynep', 'Elif', 'Emre', 'Can', 'Deniz', 'Mert', 'Yusuf', 'Eda', 'Selin', 'Berk', 'Oğuz', 'Kaan'];
+    const lastNames = ['Yılmaz', 'Kaya', 'Demir', 'Şahin', 'Çelik', 'Özdemir', 'Arslan', 'Doğan', 'Korkmaz', 'Erdoğan', 'Aydın', 'Öztürk', 'Yıldırım', 'Acar', 'Aksoy'];
+    const numbers = Math.floor(Math.random() * 1000);
+    const useUnderscore = Math.random() > 0.5;
+    const prefix = Math.random() > 0.7 ? ['x', 'i', 'Pro', 'The', 'Mr', 'Mrs'][Math.floor(Math.random() * 6)] : '';
+    
+    let name = prefix + firstNames[Math.floor(Math.random() * firstNames.length)];
+    if (useUnderscore) name += '_';
+    name += lastNames[Math.floor(Math.random() * lastNames.length)];
+    if (Math.random() > 0.3) name += numbers;
+    
     return name;
 }
 
-// Botları sırayla başlat
 console.log(`${BOT_COUNT} bot başlatma işlemi başlıyor...`);
 for (let i = 1; i <= BOT_COUNT; i++) {
     setTimeout(() => {
