@@ -1,7 +1,7 @@
 const mineflayer = require('mineflayer');
 
 const botConfig = {
-    host: 'osmbaba.aternos.me',
+    host: 'runnerhunter-PZMQ.aternos.me',
     port: 12827,
     version: '1.21.1',
     checkTimeoutInterval: 60000
