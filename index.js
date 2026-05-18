@@ -1,8 +1,8 @@
 const mineflayer = require('mineflayer');
 
 const botConfig = {
-    host: 'runnerhunter-PZMQ.aternos.me',
-    port: 12827,
+    host: 'Smpp-duda.aternos.me',
+    port: 17998,
     version: '1.21.1',
     checkTimeoutInterval: 60000
 };
